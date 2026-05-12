@@ -1,13 +1,14 @@
-import dotenv from 'dotenv';
-dotenv.config();
+import app from './src/app.js';
+import connectDb from './src/shared/config/db.js';
+import config from './src/shared/config/config.js';
 
-import app from "./src/app.js";
+const startServer = async () => {
+  await connectDb();
 
-app.get('/api/v1/health',(req,res)=>{
-    res.status(200).json({message:'OK'})
-});
+  app.listen(config.PORT, () => {
+    console.log(`🚀 Server running on port ${config.PORT} [${config.NODE_ENV}]`);
+    console.log(`📡 Health: http://localhost:${config.PORT}/api/health`);
+  });
+};
 
-app.listen(process.env.PORT,()=>{
-    console.log(`server is running on port ${process.env.PORT}`);
-});
-
+startServer();

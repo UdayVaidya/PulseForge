@@ -1,5 +1,5 @@
 import ApiError from '../utils/ApiError.js';
-import { config } from '../config/env.js';
+import config from '../config/config.js';
 
 export const errorHandler = (err, req, res, next) => {
   let error = err;
